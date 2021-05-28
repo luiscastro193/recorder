@@ -1,8 +1,17 @@
 "use strict";
 let button = document.querySelector('button');
+let microphone = document.querySelector('input');
 
-function record() {
-	navigator.mediaDevices.getDisplayMedia({audio: true, video: true}).then(stream => {
+async function record() {
+	let userAudio = microphone.checked;
+	
+	if (userAudio)
+		var audioTrack = (await navigator.mediaDevices.getUserMedia({audio: true, video: false})).getAudioTracks()[0];
+	
+	navigator.mediaDevices.getDisplayMedia({audio: !userAudio, video: true}).then(stream => {
+		if (userAudio)
+			stream.addTrack(audioTrack);
+		
 		let recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
 		
 		recorder.ondataavailable = function(event) {
@@ -20,6 +29,7 @@ function record() {
 		};
 		
 		recorder.onstop = function() {
+			stream.getTracks().forEach(track => track.stop());
 			button.onclick = record;
 			button.textContent = 'Record';
 		}
