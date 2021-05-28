@@ -38,6 +38,7 @@ async function record() {
 		
 		button.onclick = () => recorder.stop();
 		button.textContent = 'Stop';
+		stream.getVideoTracks()[0].onended = () => recorder.stop();
 	});
 }
 
