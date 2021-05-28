@@ -36,3 +36,4 @@ function record() {
 }
 
 button.onclick = record;
+button.disabled = false;
