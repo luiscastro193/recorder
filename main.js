@@ -1,13 +1,9 @@
 "use strict";
 let button = document.querySelector('button');
-let codec = 'video/webm; codecs=vp9';
-
-if (!MediaRecorder.isTypeSupported(codec))
-	codec = 'video/webm';
 
 function record() {
 	navigator.mediaDevices.getDisplayMedia({audio: true, video: true}).then(stream => {
-		let recorder = new MediaRecorder(stream, {mimeType: codec});
+		let recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
 		
 		recorder.ondataavailable = function(event) {
 			if (event.data.size > 0) {
