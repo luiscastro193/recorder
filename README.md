@@ -1,5 +1,5 @@
 # recorder
-Simple screen recorder.
+Simple screen recorder: https://luiscastro193.github.io/recorder/
 
 You can use FFmpeg to fix the metadata:
 ```
