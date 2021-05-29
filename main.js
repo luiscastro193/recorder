@@ -12,14 +12,14 @@ async function record() {
 		if (userAudio)
 			stream.addTrack(audioTrack);
 		
-		let recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
+		let recorder = new MediaRecorder(stream);
 		
 		recorder.ondataavailable = function(event) {
 			if (event.data.size > 0) {
 				let url = URL.createObjectURL(event.data);
 				let a = document.createElement("a");
 				a.href = url;
-				a.download = "recording.webm";
+				a.download = "recording";
 				a.style = "display: none";
 				document.body.appendChild(a);
 				a.click();
