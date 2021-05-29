@@ -32,12 +32,14 @@ async function record() {
 			stream.getTracks().forEach(track => track.stop());
 			button.onclick = record;
 			button.textContent = 'Record';
+			microphone.disabled = false;
 		}
 		
 		recorder.start();
 		
 		button.onclick = () => recorder.stop();
 		button.textContent = 'Stop';
+		microphone.disabled = true;
 		stream.getVideoTracks()[0].onended = () => recorder.stop();
 	});
 }
