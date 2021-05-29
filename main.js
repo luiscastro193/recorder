@@ -41,6 +41,9 @@ async function record() {
 		button.textContent = 'Stop';
 		microphone.disabled = true;
 		stream.getVideoTracks()[0].onended = () => recorder.stop();
+	}).catch(() => {
+		if (userAudio)
+			audioTrack.stop();
 	});
 }
 
