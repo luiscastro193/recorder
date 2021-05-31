@@ -37,19 +37,24 @@ async function record() {
 		
 		recorder.start();
 		
-		microphone.disabled = true;
 		button.onclick = () => recorder.stop();
 		button.textContent = 'Stop';
 		stream.getVideoTracks()[0].onended = () => recorder.stop();
-	}).catch(() => {
+	}).catch(e => {
 		if (userAudio)
 			audioTrack.stop();
+		
+		throw e;
 	});
 }
 
 async function secureRecord() {
 	button.disabled = true;
-	await record().catch(e => console.error(e));
+	microphone.disabled = true;
+	await record().catch(e => {
+		microphone.disabled = false;
+		console.error(e);
+	});
 	button.disabled = false;
 }
 
