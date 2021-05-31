@@ -8,7 +8,7 @@ async function record() {
 	if (userAudio)
 		var audioTrack = (await navigator.mediaDevices.getUserMedia({audio: true, video: false})).getAudioTracks()[0];
 	
-	navigator.mediaDevices.getDisplayMedia({audio: !userAudio, video: true}).then(stream => {
+	return navigator.mediaDevices.getDisplayMedia({audio: !userAudio, video: true}).then(stream => {
 		if (userAudio)
 			stream.addTrack(audioTrack);
 		
@@ -30,16 +30,16 @@ async function record() {
 		
 		recorder.onstop = function() {
 			stream.getTracks().forEach(track => track.stop());
-			button.onclick = record;
+			button.onclick = secureRecord;
 			button.textContent = 'Record';
 			microphone.disabled = false;
 		}
 		
 		recorder.start();
 		
+		microphone.disabled = true;
 		button.onclick = () => recorder.stop();
 		button.textContent = 'Stop';
-		microphone.disabled = true;
 		stream.getVideoTracks()[0].onended = () => recorder.stop();
 	}).catch(() => {
 		if (userAudio)
@@ -47,5 +47,11 @@ async function record() {
 	});
 }
 
-button.onclick = record;
+async function secureRecord() {
+	button.disabled = true;
+	await record().catch(e => console.error(e));
+	button.disabled = false;
+}
+
+button.onclick = secureRecord;
 button.disabled = false;
