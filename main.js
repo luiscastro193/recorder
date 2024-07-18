@@ -12,7 +12,7 @@ async function record() {
 		if (userAudio)
 			stream.addTrack(audioTrack);
 		
-		let recorder = new MediaRecorder(stream);
+		let recorder = new MediaRecorder(stream, {videoBitsPerSecond: 8000000});
 		
 		recorder.ondataavailable = function(event) {
 			if (event.data.size > 0) {
