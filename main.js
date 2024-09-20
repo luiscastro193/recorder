@@ -4,9 +4,10 @@ let microphone = document.querySelector('input');
 
 async function record() {
 	let userAudio = microphone.checked;
+	let audioTrack;
 	
 	if (userAudio)
-		var audioTrack = (await navigator.mediaDevices.getUserMedia({audio: true, video: false})).getAudioTracks()[0];
+		audioTrack = (await navigator.mediaDevices.getUserMedia({audio: true, video: false})).getAudioTracks()[0];
 	
 	return navigator.mediaDevices.getDisplayMedia({audio: !userAudio, video: true}).then(stream => {
 		if (userAudio)
