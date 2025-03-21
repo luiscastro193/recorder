@@ -55,6 +55,7 @@ async function secureRecord() {
 	await record().catch(e => {
 		microphone.disabled = false;
 		console.error(e);
+		alert('Error');
 	});
 	button.disabled = false;
 }
