@@ -1,5 +1,5 @@
 # recorder
-Simple screen recorder. You can use FFmpeg to fix the metadata:
+Simple screen recorder. You can use FFmpeg to fix the metadata if needed:
 ```shell
 ffmpeg -i recording.webm -c copy recording_fixed.webm
 ```
